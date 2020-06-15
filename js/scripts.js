@@ -21,7 +21,6 @@ TravelLog.prototype.addDestination = function(destination) {
 TravelLog.prototype.findDestination = function(name) {
   for (let i = 0; i < this.destinations.length; i++) {
     if (this.destinations[i].name === name) {
-      console.log(this.destinations[i])
       return this.destinations[i]
     }
   }
@@ -43,9 +42,15 @@ $(document).ready(function(){
 
   function attachPlaceListeners() {
     $("ul#places").on("click", "li", function() {
-      console.log(this.textContent)
-      let content = travelLog.findDestination(this.textContent);
-      console.log(content);
+      let destinationObject = travelLog.findDestination(this.textContent);
+      console.log(destinationObject.imgLink)
+      $(".destination").text(destinationObject.name)
+      $(".location").text(destinationObject.location)
+      $(".season").text(destinationObject.season)
+      $(".recommend").text(destinationObject.recommended)
+      $(".rating").text(destinationObject.rating)
+      $(".notes").text(destinationObject.notes)
+      $(".image").html(`<img src=${destinationObject.imgLink} alt="Place Image">`)
     });
   };
   $("form#form-one").submit(function(event) {
@@ -56,8 +61,9 @@ $(document).ready(function(){
     let recommend = $("input:radio[name=recommend]:checked").val();
     let rating = $("input#rating").val();
     let notes = $("input#notes").val();
-    let image = $("input#image").val();    
-    let travelDestination = new TravelDestination(name, location, season, rating, recommend, notes, image)
+    let imgLink = $("input#image").val();    
+    
+    let travelDestination = new TravelDestination(name, location, season, rating, recommend, notes, imgLink)
     travelLog.addDestination(travelDestination);
     displayTravelDetails(travelLog);
     attachPlaceListeners();
