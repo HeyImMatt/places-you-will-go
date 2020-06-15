@@ -10,14 +10,28 @@
   <body>
     <h1>Address Book</h1>
     <h2>Add a Contact:</h2>
-    <form id="new-contact">
-      <label for="new-first-name">First Name</label>
-      <input type="text" id="new-first-name">
-      <label for="new-last-name">Last Name</label>
-      <input type="text" id="new-last-name">
-      <label for="new-phone-number">Phone Number</label>
-      <input type="text" id="new-phone-number">
+    <form id="form-one">
+      <label for="name">Destination</label>
+      <input type="text" id="name">
+      <label for="location">Location</label>
+      <input type="text" id="location">
+      <label for="season">Season</label>
+      <input type="text" id="season">
+      <div class = "radio">
+        <label for="recommend">Would you recommend this destination?</label>
+        <input type="radio" name ="recommend" value ="true" checked>
+        Yes
+        <input type="radio" name ="recommend" value ="false">
+        No
+      </div>
+      <label for="stars">How many stars would you give this destination?</label>
+      <input type="text" id="stars">
+      <label for="notes">Any notes?</label>
+      <input type="text" id="notes">
+      <label for="image">Add a image URL</label>
+      <input type="text" id="image">
       <button type="submit">Add</button>
+
     </form>
 
     <h2>Contacts:</h2>
