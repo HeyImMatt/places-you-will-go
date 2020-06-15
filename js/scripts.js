@@ -18,20 +18,36 @@ TravelLog.prototype.addDestination = function(destination) {
   this.destinations.push(destination);
 }
 
-$(document).ready(function(){
+TravelLog.prototype.findDestination = function(name) {
+  for (let i = 0; i < this.destinations.length; i++) {
+    if (this.destinations[i].name === name) {
+      console.log(this.destinations[i])
+      return this.destinations[i]
+    }
+  }
+  return false;
+}
 
+$(document).ready(function(){
+  
   let travelLog = new TravelLog();
 
   function displayTravelDetails(travelDetailToDisplay) {
     let placesList = $("ul#places");
     let htmlForPlacesInfo = "";
-    console.log(travelDetailToDisplay);
     travelDetailToDisplay.destinations.forEach(function (place) {
       htmlForPlacesInfo += "<li>" + place.name + "</li>";
-      console.log(htmlForPlacesInfo);
     });
+    placesList.html(htmlForPlacesInfo);
   }
 
+  function attachPlaceListeners() {
+    $("ul#places").on("click", "li", function() {
+      console.log(this.textContent)
+      let content = travelLog.findDestination(this.textContent);
+      console.log(content);
+    });
+  };
   $("form#form-one").submit(function(event) {
     event.preventDefault();
     let name = $("input#name").val();
@@ -42,13 +58,8 @@ $(document).ready(function(){
     let notes = $("input#notes").val();
     let image = $("input#image").val();    
     let travelDestination = new TravelDestination(name, location, season, rating, recommend, notes, image)
-    console.log(travelDestination);
-
     travelLog.addDestination(travelDestination);
-
     displayTravelDetails(travelLog);
-   
-
-
+    attachPlaceListeners();
   });
 });
