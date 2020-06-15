@@ -10,11 +10,6 @@ function TravelDestination(name, location, season, rating, recommended, notes, i
   this.imgLink = imgLink;
 }
 
-TravelDestination.prototype.displayName = function() {
-  return this.name;
-  //sometype of append/.text/.html
-} 
-
 function TravelLog() {
   this.destinations = []
 }
@@ -24,14 +19,36 @@ TravelLog.prototype.addDestination = function(destination) {
 }
 
 $(document).ready(function(){
+
+  let travelLog = new TravelLog();
+
+  function displayTravelDetails(travelDetailToDisplay) {
+    let placesList = $("ul#places");
+    let htmlForPlacesInfo = "";
+    console.log(travelDetailToDisplay);
+    travelDetailToDisplay.destinations.forEach(function (place) {
+      htmlForPlacesInfo += "<li>" + place.name + "</li>";
+      console.log(htmlForPlacesInfo);
+    });
+  }
+
   $("form#form-one").submit(function(event) {
     event.preventDefault();
     let name = $("input#name").val();
     let location = $("input#location").val();
     let season = $("input#season").val();
     let recommend = $("input:radio[name=recommend]:checked").val();
-    let stars = $("input#stars").val();
+    let rating = $("input#rating").val();
     let notes = $("input#notes").val();
     let image = $("input#image").val();    
+    let travelDestination = new TravelDestination(name, location, season, rating, recommend, notes, image)
+    console.log(travelDestination);
+
+    travelLog.addDestination(travelDestination);
+
+    displayTravelDetails(travelLog);
+   
+
+
   });
 });
